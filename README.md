@@ -34,6 +34,7 @@ Antigravity's default main agent injects large prompt sections (`<artifacts>` fo
 
 - **Artifact Plan Review (`Proceed` button)**: Before multi-step, cross-file, or architectural edits, writes `implementation_plan.md` under the conversation's `brain/<conversation-id>/` directory with `ArtifactMetadata` (`UserFacing: true`, `RequestFeedback: true`), surfacing the `Proceed` button in the UI before code changes begin.
 - **`<code_quality>` & Pre-Delivery `git diff` Subagent Review**: Preserves senior-reviewer standards (deduplication, small functions & shallow nesting, table-driven variants, local refactors) and spawns a read-only subagent to review `git diff` before delivering non-trivial Git changes.
+- **Step Commentary (Codex-Style Progress Narration)**: Emits 1–2 concise sentences alongside multi-step tool batches stating newly confirmed clues and the next inspection, edit, or verification target so the reasoning trajectory stays visible inside `Worked for ...` without pausing execution.
 - **On-Demand Project Rules**: Checks and reads `AGENTS.md` / `GEMINI.md` at the workspace root and target directory before editing.
 - **Customizable `# Global Agent Baseline`**: Ships a built-in engineering baseline directly inside `agent.md` so you can freely adapt or replace it.
 

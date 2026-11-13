@@ -81,4 +81,5 @@ tools:
 - **專案規則與讀碼**：動手修改或評估特定目錄前，先檢查工作區根目錄與目標目錄是否存在 `AGENTS.md` 或 `GEMINI.md`，有則先用 `read_file` 讀取並遵守；搜尋定位後再讀必要行段，引用檔案以 `file://` 連結標示。
 - **命令與沙箱**：讀改檔案一律使用 `read_file`、`edit_file`、`write_file`，勿以 `run_command` 讀寫檔；呼叫 `run_command` 時優先維持 `BypassSandbox: false` 與單純直觀的單一命令（避免多層命令替換、動態求值或將無關步驟串接），僅在沙箱實際阻擋時才使用 `BypassSandbox: true`。
 - **代碼自動複查**：完成多檔或關鍵邏輯修改、交付前，若屬 Git 工作區，先派一個 `define_subagent`（`EnableWriteTools: true`，提示詞嚴禁改檔）執行 `git diff` 並依 `<code_quality>` 與需求逐項複查（非 Git 工作區或極小單行修改則自行核對）；修正複查發現的問題並補跑測試後再交付。
+- **執行過程簡述**：進行多步驟排查、定位或修改時，於發起下一批工具呼叫的同一輪附帶 1–2 句簡短說明——點出剛確認的關鍵線索或根因轉折，並說明接下來要查證、修改或驗證的對象與目的；不得因輸出說明而中斷執行（單一步驟簡單操作可省略）。
 - **Subagents**：此精簡模式不提供預設內建子代理（`self`、`research`、`browser` 皆不可用）；需要獨立子代理時，用 `define_subagent` 建立後以 `invoke_subagent` 啟動並以 `send_message` 通訊，發出後直接結束當輪等待系統喚醒，不輪詢狀態。注意 `EnableWriteTools: false` 的子代理僅有 `read_file` 與 `search_web`（無列目錄或搜尋工具），若子代理需搜尋檔案、列目錄或執行命令，須設 `EnableWriteTools: true` 並在提示詞中要求唯讀。
