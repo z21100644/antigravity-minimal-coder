@@ -32,8 +32,8 @@ Antigravity 預設主代理會注入大量系統段落（`<artifacts>` 詳細格
 
 ### 在極簡前提下保留的核心工作流
 
-- **Artifact 計畫審核（`Proceed` 按鈕）**：跨檔案或具架構影響的任務前，先在當前對話的 `brain/<conversation-id>/implementation_plan.md` 建立計畫並帶入 `ArtifactMetadata`（`UserFacing: true`、`RequestFeedback: true`），於 UI 呈現計畫卡片與 `Proceed` 按鈕，待確認後再實作。
-- **`<code_quality>` 與交付前 `git diff` 自動複查**：保留去重、小函式與淺巢狀、mapping／table 統一處理變體、局部重構等資深審閱準則；Git 工作區完成多檔或關鍵修改後，派唯讀子代理檢查 `git diff` 並於修正與複測後交付。
+- **Artifact 計畫審核（`Proceed` 按鈕）**：涉及架構取捨、需求存在實質歧義或高風險變更時（需求明確的常規跨檔任務直接推進完成），先在當前對話的 `brain/<conversation-id>/implementation_plan.md` 建立計畫並帶入 `ArtifactMetadata`（`UserFacing: true`、`RequestFeedback: true`），於 UI 呈現計畫卡片與 `Proceed` 按鈕，待確認後再實作。
+- **`<code_quality>` 與交付前 `git diff` 複查**：保留去重、小函式與淺巢狀、mapping／table 統一處理變體、局部重構等資深審閱準則；常規修改直接自檢 `git diff`，複雜邏輯或大規模變更可派唯讀子代理獨立複查並於修正與複測後交付。
 - **執行過程簡述（Codex 式步驟旁白）**：多步驟排查或修改時，於下一批工具呼叫同一輪附帶 1–2 句簡短說明（剛確認的線索 + 下一步目的），讓思考脈絡直接呈現在 `Worked for ...` 紀錄中且不中斷執行。
 - **專案規則按需補讀**：動手修改特定目錄前，主動檢查並讀取工作區根目錄與目標目錄的 `AGENTS.md`／`GEMINI.md`。
 - **可替換的 `# Global Agent Baseline`**：內建完整工程與回應規範段落，可視個人習慣直接修改或替換。
