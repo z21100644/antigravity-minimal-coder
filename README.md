@@ -40,6 +40,20 @@ Antigravity's default main agent injects large prompt sections (`<artifacts>` fo
 
 ---
 
+## Recommended CLI Prerequisites
+
+Because `minimal-coder` omits built-in search/browser wrappers and guides `run_command` to use targeted CLI tools—`git` (`git grep`, `git ls-files`, `git diff`), [`ripgrep`](https://github.com/BurntSushi/ripgrep) (`rg`), and `python` or `curl` for direct URL fetching—having them on `PATH` avoids first-turn `CommandNotFound` errors and wasted fallback round-trips (especially on Windows where `rg` and Python are not preinstalled):
+
+- **Install `ripgrep` (`rg`)**:
+  - Windows: `winget install BurntSushi.ripgrep.MSVC`
+  - macOS: `brew install ripgrep`
+  - Debian / Ubuntu: `sudo apt install ripgrep`
+- **Windows environment notes**:
+  - **Restart Antigravity after installing tools**: After installing `rg`, `git`, or `python` (e.g. via `winget`), fully close and reopen Antigravity so newly spawned PowerShell child processes inherit the updated system `PATH`.
+  - **Watch out for the Microsoft Store `python.exe` stub alias**: Windows 10/11 ships a default `WindowsApps\python.exe` App Execution Alias that redirects to Microsoft Store when Python is not installed, causing background agent invocations to fail immediately. Install official Python (or disable the alias under *Settings → Apps → Advanced app settings → App execution aliases*), and verify in a terminal that `git --version`, `rg --version`, and `python --version` all print actual version numbers.
+
+---
+
 ## Quick Install & Uninstall
 
 ### Option 1: Global Install (Recommended, All Workspaces)

@@ -40,6 +40,20 @@ Antigravity 默认主代理会注入大量系统段落（`<artifacts>` 详细格
 
 ---
 
+## 前置环境建议
+
+由于 `minimal-coder` 移除了内置搜索／网页封装工具，并引导模型在 `run_command` 中优先使用 `git`（`git grep`、`git ls-files`、`git diff`）、[`ripgrep`](https://github.com/BurntSushi/ripgrep)（`rg`）以及 `python` 或 `curl`（读取指定 URL），建议预先确保这些工具已在系统 `PATH` 中，避免（尤其是默认未预装 `rg` 与 Python 的 Windows 环境）首轮调用撞上 `CommandNotFound` 而白费一次往返 fallback：
+
+- **安装 `ripgrep`（`rg`）**：
+  - Windows：`winget install BurntSushi.ripgrep.MSVC`
+  - macOS：`brew install ripgrep`
+  - Debian / Ubuntu：`sudo apt install ripgrep`
+- **Windows 环境排查细节**：
+  - **安装后重启 Antigravity**：例如通过 `winget install BurntSushi.ripgrep.MSVC` 安装完工具后，请完全关闭并重开 Antigravity 应用程序，让后续启动的 PowerShell 子进程继承更新后的系统 `PATH`。
+  - **避开 Microsoft Store 的 Python 空壳别名**：Windows 10/11 未安装 Python 时，`PATH` 默认带有指向应用商店的 `python.exe` 快捷方式（App Execution Alias），Agent 在后台调用会直接失败。建议安装官方 Python（或在「设置 → 应用 → 高级应用设置 → 应用执行别名」中关闭该别名），并在终端实测 `git --version`、`rg --version` 与 `python --version` 均能正常输出版本号。
+
+---
+
 ## 快速安装与卸载
 
 ### 方式一：全局安装（推荐，适用所有工作区）
